@@ -26,12 +26,22 @@ lam =.01
 
 historicalTest=[]
 historicalTrain=[]
+betaCount = []
 
 # implement lasso
 # you should record training & testing MSEs after every update (for Figure 1 plotting)
 # you should also record the number of non-zero elements in beta after every update
 def lasso():
-    for i in range(p):
+    caseOne = 0
+    caseTwo = 0
+    caseThree = 0
+    for i in range(1000):
+        count = 0
+        for d in range(len(beta)):
+            if beta[d] !=0:
+                count +=1
+        betaCount.append(count)
+        #print(count)
         myrand = np.random.randint(0,p)
         result =0
         fakebeta = beta
@@ -40,27 +50,34 @@ def lasso():
             for k in range(n_train):
                 xtrans = np.transpose(sample_train[k,:])
                 xtb = xtrans.dot(fakebeta[1:])
-                beta[myrand] = -(1/n)*(xtb-label_train[k])
+                beta[myrand] = -(1/n_train)*(xtb-label_train[k])
         else:
             xj=sample_train[:,myrand]
             xtran = np.transpose(xj)
             tempBeta = np.delete(fakebeta,myrand)
             ajprime = sample_train.dot(tempBeta)
             aj = ajprime-label_train
-            xta = 2*xtran.dot(aj)
-            topOne = -lam-xta
-            bottom = 2*xj.dot(np.transpose(xj))
+            xtTwo = 2*xtran
+            xta = xtTwo.dot(aj)
+            topOne = np.negative(lam)-xta
+            bottom = 2*(xj.dot(xtran))
             topTwo = lam-xta
-            if xta < -lam:
+            #print(xta)
+            #print(beta)
+            if xta < np.negative(lam):
                 beta[myrand] = (topOne/bottom)
+                caseOne += 1
             elif xta > lam:
+                caseTwo += 1
                 beta[myrand] = (topTwo/bottom)
             else:
+                print("in three")
+                caseThree += 1
                 beta[myrand] = 0
-
+    print(caseOne,caseTwo,caseThree)
 # Figure 1: plot your historical training MSE and testing MSE into two curves
 def fig1():
-    mpl.plot( historicalTrain, label="training")
+    mpl.plot(historicalTrain, label="training")
     mpl.plot(historicalTest, label="testing")
 
     mpl.ylabel("Error")
@@ -71,6 +88,8 @@ def fig1():
 
 # Figure 2: plot your number of non-zero elements in beta
 def fig2():
+    mpl.plot(betaCount)
+    mpl.show()
     print()
 
 # For Figure 3, you will need to run multiple times with different lambda's and plot the converged results
@@ -80,6 +99,8 @@ def fig3():
 # For Figure 4, you will need to run multiple times with different lambda's and plot the converged results
 def fig4():
     print()
+
 lasso()
-#print(beta)
+
+print(beta)
 #fig2()

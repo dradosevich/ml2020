@@ -1,0 +1,88 @@
+\documentclass{llncs}
+
+\usepackage[margin=1in]{geometry}
+
+\usepackage{graphicx,color,comment,url} 
+
+\usepackage{amsmath,amssymb}
+
+
+\title{[ML20] Assignment 3}
+\author{Your Name}
+\institute{}
+
+\begin{document}
+
+\maketitle 
+
+\setlength\parindent{0pt} 
+\setlength{\parskip}{10pt}
+
+Due: Feb 10 (before class)
+
+[1] Let $x = \begin{bmatrix} x_{1} \\ x_{2} \end{bmatrix}$ and 
+$M = \begin{bmatrix} M_{11} & M_{12} \\ M_{21} & M_{22}
+\end{bmatrix}$.  If $f(x) = x^{T} M$, 
+calculate $\frac{\partial}{\partial x}f(x)$. Elaborate your 
+arguments. 
+
+\vspace{30pt}
+
+[2] Let $f(x) = x^{2} - 4 x +1 $. Implement gradient 
+descent (GD) to identify its minimum.\footnote{You need to 
+implement from scratch. You cannot use any optimization 
+library in Python.} Requirements are 
+
+(i) Write your update formula. Let $\lambda$ denote the step-size. 
+\begin{equation}
+x = \ldots     
+\end{equation}
+
+(ii) Explain your stopping criterion. For example, ``I stop 
+the update when \ldots'' 
+
+(iii) Initially set $x = 50$. (In practice you should 
+initialize randomly. Here we fix it for easier grading.)  
+
+(iv) Show two figures. Each figure shows a \textit{convergent}
+\footnote{This means you need to run sufficient number 
+of updates until convergence of the curve is observed.}
+curve of $f(x)$, with x-axis being the number of GD 
+updates and y-axis being $f(x)$. 
+Choose two $\lambda$'s for the two figures, respectively, 
+such that one choice allows $f$ to converge faster but not 
+very close to its true minimum, while the other choice allows 
+$f$ to get closer to its minimum but has a more slowly 
+convergence rate. 
+
+\begin{figure}[h!] 
+\centering 
+\includegraphics[width=.4\textwidth]{} 
+\caption{Convergence Curve with $\lambda = \ldots$} 
+\end{figure}
+
+\begin{figure}[h!] 
+\centering 
+\includegraphics[width=.4\textwidth]{} 
+\caption{Convergence Curve with $\lambda = \ldots$} 
+\end{figure}
+
+\vspace{30pt}
+
+[3] Let $f(x) = 3 x^{2} - 6 x - 7$. 
+Apply the \textit{Lagrange multiplier} technique 
+to solve $\min_{x} f(x),\ \text{s.t.}\ 2 x^{2} \leq 5$. 
+Elaborate your arguments based on the following five steps.
+
+Step 1. Construct Lagrange Function $F$. 
+
+Step 2. Minimize $F$ over $x$ (using the critical point method if you can) 
+
+Step 3. Plug the optimal $x$ back to $F$ to get a dual function $G$. 
+
+Step 4. Maximize $G$ over any newly introduced parameter(s) 
+(using the critical point method if you can). 
+
+Step 5. Plug that optimal new parameter back to $x$ and finally to $f(x)$. 
+
+\end{document}

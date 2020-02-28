@@ -1,0 +1,196 @@
+\documentclass{llncs}
+
+\usepackage[margin=1in]{geometry}
+
+\usepackage{graphicx,color,comment,url} 
+
+\usepackage{amsmath,amssymb}
+
+
+\title{[ML20] Assignment 5}
+\author{Your Name}
+\institute{}
+
+\begin{document}
+
+\maketitle 
+
+\setlength\parindent{0pt} 
+\setlength{\parskip}{10pt}
+
+Due: Feb 28 (before class)
+
+\textbf{Part I: Weighted Ridge Regression}
+
+\underline{Weighted ridge regression} aims to 
+learn a simple linear model $\beta$ that minimizes 
+MSE on training data but with different focuses 
+on different instances. Let $w_{i}$ be the weight 
+of instance $x_{i}$. If $w_{1} > w_{2}$, then 
+the model should make less error on $x_{1}$ 
+compared to $x_{2}$. WRR finds such a model 
+that minimizes the following objective 
+\begin{equation}
+J(\beta) = \sum_{i=1}^{n} w_{i} \cdot 
+(x_{i}^{T} \beta - y_{i})^{2} 
++ \lambda \sum_{j=1}^{p} \beta_{j}^{2}. 
+\end{equation}
+
+[1] Write $J(\beta)$ in a matrix form. 
+Elaborate your arguments. (tip: matrix 
+form of $\sum_{i=1}^{p} w_{i} a_{i} b_{i}$.) 
+
+[2] Derive the analytic solution of $\beta$. 
+(tips: is $J(\beta)$ quadratic?)
+
+
+[3] Implement your WRR from 
+scratch in Python. 
+Set $w_{i} = 1$ for all instances. 
+Draw a figure of two curves -- one is training 
+error versus $\lambda$ and the other 
+is testing error versus $\lambda$. 
+(So y-axis is error, and x-axis is $\lambda$.) 
+Pick your own set of $\lambda$'s so that we 
+can observe both underfitting and overfitting 
+by comparing the two curves. 
+
+Tips: once your model $\beta$ is learned, 
+its MSE on any instance $(x_{i},y_{i})$ 
+is $(x_{i}^{T}\beta - y_{i})^{2}$. 
+Its average over training instances 
+is training MSE, and its average 
+over testing instances is testing MSE. 
+When taking average, keep in mind that the 
+number of training instances and the number 
+of testing instances are different. 
+
+\begin{figure}[h!] 
+\centering 
+\includegraphics[width=.4\textwidth]{} 
+\caption{Training MSE and Testing MSE 
+versus $\lambda$ with $w_{i=1} = 1$.} 
+\end{figure}
+
+[4] In the given data set, 
+the first column is a binary feature. 
+If it is 1, the instance is a minority 
+community -- more than half of its 
+residents are black; otherwise, the 
+instance is a non-minority community. 
+In the following experiment, fix $w_{i}=1$ 
+for all non-minority instances, and vary $w_{i}$ 
+for all minority instances. Let $w_{min}$ 
+be the weight shared by all minority instances. 
+
+Pleases draw a figure of two curves -- 
+one is testing MSE on the minority instances 
+versus $w_{min}$ and the other is testing MSE 
+on the non-minority instances versus $w_{min}$. 
+(So y-axis is error, and x-axis is $w_{min}$.) 
+Choose a $\lambda$ yourself and fix it. 
+Choose 7 candidate $w_{min}$'s yourself, 
+and the middle one must be $w_{min} = 1$.  
+
+Below are two expectations of your figure. 
+
+(i) As $w_{min}$ increases from 1, 
+the gap between the two curves decreases. 
+[Bonus] If, at the largest $w_{min}$, 
+you get a minority MSE which is smaller than
+non-minority MSE\footnote{You 
+will probably observe that minority MSE is larger 
+than non-minority MSE when $w_{min} = 1$.}, 
+you will get 10\% bonus for task [4]. 
+
+(ii) As $w_{min}$ decreases from 1, 
+the original gap between the two curves increases. 
+
+\begin{figure}[h!] 
+\centering 
+\includegraphics[width=.4\textwidth]{} 
+\caption{Testing MSEs versus $w_{i=1}$ 
+with $\lambda = \ldots$.} 
+\end{figure}
+
+[Bonus] After drawing the above figure, 
+if you can draw an additional figure 
+with the same set of $w_{min}$'s but a 
+different choice of $\lambda$, and show that 
+the two curves in this figure are less sensitive 
+over the change of $w_{min}$ compared with the 
+previous figure, you will get 30\% bonus for task [4].
+
+\begin{figure}[h!] 
+\centering 
+\includegraphics[width=.4\textwidth]{} 
+\caption{Testing MSEs versus $w_{i=1}$ 
+with $\lambda = \ldots$. Here the gap is 
+less sensitive to $w_{min}$.} 
+\end{figure}
+
+\textbf{Part II: Lasso}
+
+Implement Lasso from scratch in Python\footnote{Choose 
+your own stopping criterion. Clarify it in your 
+submission.}. 
+Evaluate it on the given data set. 
+Draw four figures. 
+
+For Figure 1 and Figure 2, you should first choose 
+a proper $\lambda$ and fix it (for both figures). 
+
+Figure 1 contains two curves -- one is training MSE 
+versus the number of updates, and the other is testing 
+MSE versus the number of updates. (So y-axis is error, 
+and x-axis is number of updates.) 
+Make your curves as smooth and convergent as possible. 
+
+Figure 2 contains the number of non-zero elements 
+in $\beta$ versus the number of updates. (So y-axis 
+is number of non-zero elements, and x-axis is the 
+number of updates.) 
+
+For Figure 3 and Figure 4, you should vary $\lambda$ 
+and only report converged results under different 
+$\lambda$'s. 
+
+Figure 3 contains two curves -- one 
+is converged training MSE versus $\lambda$ and 
+the other is converged testing MSE versus 
+$\lambda$\footnote{For example, if $\lambda = 1$, 
+the converged MSEs are 0.2 and 0.3; 
+if $\lambda = 0.1$, the converged MSEs are 0.1 
+and 0.35.}. (So y-axis is converged error, and 
+x-axis is $\lambda$.) 
+Choose your own set of $\lambda$'s but 
+make sure your curves demonstrate both 
+overfitting and underfitting. 
+
+\begin{figure}[h!] 
+\centering 
+\includegraphics[width=.4\textwidth]{} 
+\caption{Training MSE and Testing MSE of 
+Lasso versus $\lambda$.} 
+\end{figure}
+
+Figure 4 reports the converged number of 
+non-zero elements in $\beta$ versus 
+$\lambda$.\footnote{For example, if $\lambda=1$, 
+your converged $\beta$ contains 10 non-zero 
+elements; if $\lambda = 0.1$, your converged 
+$\beta$ contains 30.} 
+Keep in mind that, as $\lambda$ increases, 
+we should expect fewer non-zero elements. 
+Make your curve as smooth and convergent 
+as possible. 
+
+\begin{figure}[h!] 
+\centering 
+\includegraphics[width=.4\textwidth]{} 
+\caption{Number of non-zero elements in 
+$\beta$ versus $\lambda$.} 
+\end{figure}
+
+
+\end{document}

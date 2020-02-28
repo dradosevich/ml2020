@@ -22,7 +22,7 @@ label_test = label[n_train:]
 # randomly initialize beta
 beta = np.random.uniform(low=-1,high=1,size=(p+1))
 
-lam =.01
+
 
 historicalTest=[]
 historicalTrain=[]
@@ -31,7 +31,7 @@ betaCount = []
 # implement lasso
 # you should record training & testing MSEs after every update (for Figure 1 plotting)
 # you should also record the number of non-zero elements in beta after every update
-def lasso():
+def lasso(lam):
     caseOne = 0
     caseTwo = 0
     caseThree = 0
@@ -43,37 +43,46 @@ def lasso():
         betaCount.append(count)
         #print(count)
         myrand = np.random.randint(0,p)
-        result =0
+        result = 0
         fakebeta = beta
-        fakebeta[0] =0
+        #fakebeta[0] = 0
         if myrand==0:
             for k in range(n_train):
                 xtrans = np.transpose(sample_train[k,:])
                 xtb = xtrans.dot(fakebeta[1:])
                 beta[myrand] = -(1/n_train)*(xtb-label_train[k])
         else:
-            xj=sample_train[:,myrand]
-            xtran = np.transpose(xj)
-            tempBeta = np.delete(fakebeta,myrand)
-            ajprime = sample_train.dot(tempBeta)
-            aj = ajprime-label_train
-            xtTwo = 2*xtran
-            xta = xtTwo.dot(aj)
-            topOne = np.negative(lam)-xta
-            bottom = 2*(xj.dot(xtran))
-            topTwo = lam-xta
-            #print(xta)
+            xj=sample_train[:,myrand] #create x_j
+            #print(xj)
+            xtran = np.transpose(xj) #create the transpose of x_j
+            tempBeta = np.delete(fakebeta,myrand) #remove the element to align sizes
+            #print(tempBeta)
+            ajprime = sample_train.dot(tempBeta) #create aj prime to split up operations
+            aj = ajprime-label_train # make aj= X*B[-j] - Y
+            #print(aj)
+            xtTwo = 2*xtran # 2* the transpose of x
+            xta = xtTwo.dot(aj) # crate our check for cases
+            topOne = np.negative(lam)-xta # create first nom for assignment
+            #the above is -lamda - xta
+            bottom = 2*(xj.dot(xtran)) #create the denom 2*||x_j||^2
+            topTwo = lam-xta#create second nom, lam -xta
+            print("------------------------------------------")
+            print(xta)
             #print(beta)
-            if xta < np.negative(lam):
+            if lam < np.negative(xta):
                 beta[myrand] = (topOne/bottom)
+                print(topOne,bottom)
                 caseOne += 1
-            elif xta > lam:
+            elif lam < xta:
                 caseTwo += 1
                 beta[myrand] = (topTwo/bottom)
+                print(topOne,bottom)
             else:
                 print("in three")
                 caseThree += 1
                 beta[myrand] = 0
+            xta =0
+            print("------------------------------------------")
     print(caseOne,caseTwo,caseThree)
 # Figure 1: plot your historical training MSE and testing MSE into two curves
 def fig1():
@@ -100,7 +109,9 @@ def fig3():
 def fig4():
     print()
 
-lasso()
+lam =.01
+lasso(lam)
 
 print(beta)
 #fig2()
+randLam = np.random.uniform(low=0, high=100,size=(1000))

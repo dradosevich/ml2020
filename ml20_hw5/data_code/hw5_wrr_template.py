@@ -20,7 +20,7 @@ label_train = label[0:n_train]
 label_test = label[n_train:]
 
 
-randLam = np.random.uniform(low=0, high=100,size=(1000)) #array of 30 random lambdas
+randLam = np.random.uniform(low=0, high=100,size=(1000)) #array of 1000 random lambdas
 randLam.sort()#sort it
 # create an array of weights w, and then preset its values
 # for example, the weight of x_i is w_i = 1.
@@ -91,7 +91,7 @@ def fig2():
         xTrans = np.transpose(sample_train)#save xTranspose
         xTw=xTrans.dot(newWeight)#mult trans by w
         xTx = xTw.dot(sample_train) #mult xTw by x
-        lamI = .01*ident #get our I by our scalar
+        lamI = .1*ident #get our I by our scalar
         innerIn = np.linalg.inv(xTx+lamI)#get the inversion
         innerNext = innerIn.dot(xTrans).dot(weights) #mult the inversion by the trans then weight
         beta = innerNext.dot(label_train) #finally multiply by y to get beta

@@ -1,0 +1,77 @@
+\documentclass{llncs}
+
+\usepackage[margin=1in]{geometry}
+
+\usepackage{graphicx,color,comment,url} 
+
+\usepackage{amsmath,amssymb}
+
+
+\title{[ML20] Assignment 7}
+\author{Your Name}
+\institute{}
+
+\begin{document}
+
+\maketitle 
+
+\setlength\parindent{0pt} 
+\setlength{\parskip}{10pt}
+
+Due: Mar 11 (before class)
+
+[1] Let $x_{1}, \ldots, x_{n}$ be a set of 
+instances generated i.i.d. from  
+$\mathcal{N}(\mu, \sigma^{2})$. 
+Let $p(\mu) \sim \mathcal{N}(m, t^{2})$ 
+be a prior of $\mu$. 
+
+Derive the MAP of $\mu$, assuming other 
+parameters are known. 
+You need to elaborate on the following steps. 
+
+Step 0. Write down the pdf of $x$ and $\mu$. 
+
+Step 1. Write down the log-likelihood function 
+of $\mu$. 
+
+Step 2. Write down the log-prior of $\mu$. 
+
+Step 3. Show how to optimize $\mu$ over a proper objective. 
+
+Step 4. Verify $\mu$ is indeed the max/min
+point of your chosen objective using the 2nd-order 
+derivative test. 
+
+Step 5. Show that when $t$ approaches 0, your 
+estimate of $\mu$ will approach $m$. 
+
+\vspace{50pt}
+
+[2] We have shown MLE is equivalent to 
+(weighted) least square and MAP is equivalent 
+to ridge regression under proper probabilistic 
+assumptions. Now, please show that MLE or MAP 
+is equivalent to weighted ridge regression under 
+proper assumptions. Recall that WRR finds a $\beta$ 
+that minimizes 
+\begin{equation}
+J(\beta) = \sum_{i=1}^{n} w_{i} (x_{i}^{T} \beta 
+- y_{i})^{2} + \lambda \sum_{j=1}^{p} \beta_{j}^{2}. 
+\end{equation}
+
+You need to elaborate on the following steps. 
+
+Step 1. Specify \textit{all} your probabilistic assumptions. 
+
+Step 2. Write down the log-likelihood function (and log-prior 
+if necessary). 
+
+Step 3. Show that MLE/MAP is equivalent 
+to optimizing $J(\beta)$. 
+
+Step 4. Discuss how to interpret your 
+derived $w_{i}$ and $\lambda$. 
+
+
+\end{document}

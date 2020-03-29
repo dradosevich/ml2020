@@ -1,0 +1,113 @@
+\documentclass{llncs}
+
+\usepackage[margin=1in]{geometry}
+
+\usepackage{graphicx,color,comment,url} 
+
+\usepackage{amsmath,amssymb}
+
+
+\title{[ML20] Assignment 8}
+\author{Your Name}
+\institute{}
+
+\begin{document}
+
+\maketitle 
+
+\setlength\parindent{0pt} 
+\setlength{\parskip}{10pt}
+
+Due: Mar 27 (before class) 
+
+[1] If $\kappa_{1}(a,b)$ and $\kappa_{2}(a,b)$ 
+are two valid kernels, prove that 
+$g(a,b) = \kappa_{1}(a,b) + \kappa_{2}(a,b)$ is 
+also a valid kernel. 
+
+[2] Kernel ridge regression is a powerful nonparameteric 
+model but suffers from the $O(n^{3})$ computational complexity, 
+where $n$ is the size of training set. Please develop 
+an efficient approximation KRR (AKRR). 
+
+Here are the requirements: 
+
+(i) Your model $\beta$ still minimizes training 
+error over the entire training set, i.e., 
+\begin{equation}
+\label{hw8_eq1}
+J(\beta) = \sum_{i=1}^{n} (\phi(x_{i})^{T} \beta 
+- y_{i})^{2} + \lambda \beta^{T} \beta. 
+\end{equation}
+(ii) For AKRR, assume the optimal model is made 
+of $k$ random training instances ($k < n$), i.e., 
+\begin{equation}
+\label{hw8_eq2}
+\beta = \sum_{j = 1}^{k} \alpha_{j} \phi(x_{j}).
+\end{equation}
+
+(iii) Plug (\ref{hw8_eq2}) back to (\ref{hw8_eq1}), 
+and derive the analytic solution of $\alpha 
+= [\alpha_{1}, \ldots, \alpha_{n}]^{T}$. Importantly, 
+show that the computational complexity of getting 
+$\alpha$ is now $O(k^{3})$. 
+
+......
+
+
+Implement KRR and AKRR, using Gaussian kernel with 
+hyper-parameter $\sigma$. Report your results below. 
+
+(a) Draw a figure of two curves for KRR. 
+One is its training MSE versus $\sigma$ and the 
+other is its testing MSE versus $\sigma$. 
+Properly choose 7 candidate values of $\sigma$ 
+so we may observe overfitting and underfitting. 
+
+\begin{figure}[h!] 
+\centering 
+\includegraphics[width=.4\textwidth]{} 
+\caption{KRR MSE versus $\sigma$.} 
+\end{figure}
+
+(b) Properly choose a $\sigma$ for AKRR and fix it. 
+Draw a figure of two curves for AKRR. 
+One is its training MSE versus $k$ and the other 
+is its testing MSE versus $k$. Choose 7 candidate 
+values of $k$ and a proper $\sigma$ so that you can 
+get as smooth and convergent curves as possible. 
+
+\begin{figure}[h!] 
+\centering 
+\includegraphics[width=.4\textwidth]{} 
+\caption{AKRR MSE versus $k$. Here $\sigma = \ldots$}. 
+\end{figure}
+
+(c) [Bonus] ARKK+ is built on ARKK, but it selects $k$ 
+training instances in a non-random fashion. Please propose 
+your own selection technique and briefly explain it here. 
+You will get 30\% bonus if you can show ARKK+ outperforms 
+ARKK, i.e., under the same $k$ and $\sigma$, ARKK+ has 
+lower testing MSE -- however, both ARKK and ARKK+ show 
+have reasonable testing MSE, as compared with KRR. 
+Report your results in the following table. 
+(Search Python library that can record the running 
+time of a segment of codes.)  
+
+\begin{table}
+\centering
+\caption{Performance of KRR, AKRR and AKRR+ 
+($k=...$, $\sigma = ...$)}
+\setlength{\tabcolsep}{20pt} % set column space
+\def\arraystretch{2.5} % set row space (ratio) 
+\begin{tabular}{c|c|c|c}
+\hline 
+\bf Method & \bf Training MSE & \bf Testing MSE & 
+\bf Training Time \\ \hline 
+KRR & & \\ \hline 
+AKRR & & \\ \hline
+AKRR+ & & \\ \hline 
+\end{tabular}
+\end{table}
+
+\end{document}

@@ -1,0 +1,172 @@
+\documentclass{llncs}
+
+\usepackage[margin=1in]{geometry}
+
+\usepackage{graphicx,color,comment,url} 
+
+\usepackage{amsmath,amssymb}
+
+
+\title{[ML20] Assignment 13}
+\author{Your Name}
+\institute{}
+
+\begin{document}
+
+\maketitle 
+
+\setlength\parindent{0pt} 
+\setlength{\parskip}{10pt}
+
+Due: May 22 (by 8:45am) 
+
+[1] Figure \ref{fig:hw13_ann} shows a 
+neural network. Assume all neurons, except 
+those in the input layer, use an activation
+function $\sigma$, e.g., 
+$z_{1} = \sigma(w_{11} x_{1} + w_{21} x_{2})$
+and $y = \sigma(\beta_{1} z_{1} + \beta_{2} z_{2})$. 
+Please derive the derivative of $y$ 
+w.r.t. $w_{22}$. 
+
+\begin{figure}[h!]
+\centering
+\includegraphics[width=.5\textwidth]{fig_ann.jpg}
+\caption{An Example Neural Network}
+\label{fig:hw13_ann}
+\end{figure}
+
+\newpage 
+
+[2] Soft-margin LSVM finds an optimal 
+decision boundary by solving 
+\begin{equation}
+\min_{\beta,\,\beta_{0}, \epsilon_{i}}\ 
+\frac{1}{2} ||\beta||^{2} 
++ C \sum_{i=1}^{n} \epsilon_{i},\quad  
+\text{s.t.}\ y_{i}\, (x_{i}^{T} \beta 
++ \beta_{0}) \geq 1 - \epsilon_{i},\ \ 
+\epsilon_{i} \geq 0, \ \ i = 1, \ldots, n.
+\end{equation}
+where $C$ is a hyper-parameter controlling 
+the degree of tolerance. 
+
+We can apply the Lagranger Multiplier 
+technique to solve this problem. 
+
+(2.a) Please give the Lagrange function
+$L$ and clarify the domain of all 
+newly introduced coefficients. 
+
+(2.b) Suppose you introduce a coefficient 
+$\alpha_{i}$ for constraint $y_{i}(x_{i}^{T} \beta + \beta_{0}) \geq 1 - \epsilon_{i}$. 
+Please show the Wolfe dual function $L_{d}$
+of $L$ is 
+\begin{equation}
+L_{D} = \sum_{i = 1}^{n} \alpha_{i} 
+- \frac{1}{2} \sum_{i,j=1}^{n} 
+\alpha_{i} \alpha_{j} y_{i} y_{j} 
+x_{i}^{T}x_{j}. 
+\end{equation}
+Hint: $L_{D}$ is obtained by 
+taking derivative of $L$ w.r.t. 
+each parameter, and plugging results 
+back to $L$.    
+
+\newpage 
+
+[3] Implement an ensemble classifier 
+using the bagging technique. 
+Use regularized logistic regression 
+as the base model. You can train and 
+test it using any Python library, 
+which will ask you to choose a
+regularization coefficient $\lambda$ 
+that controls model complexity 
+(like in ridge regression). 
+
+Show your results in 
+Figure \ref{fig:hw13_bagging_1} and 
+Figure \ref{fig:hw13_bagging_2}. 
+In each figure, y-axis is testing error 
+and x-axis is number of base models 
+-- choose five numbers yourself to 
+cover a comprehensive story of model 
+performance. 
+In Figure \ref{fig:hw13_bagging_1}, 
+show results based on a large 
+$\lambda$, say $\lambda_{1}$.  
+In Figure \ref{fig:hw13_bagging_2},  
+show results based on a small 
+$\lambda$, say $\lambda_{2}$. 
+Choose $\lambda_{1}$ and $\lambda_{2}$ 
+yourself, so we can see the impact 
+of $\lambda$ on model performance by 
+comparing the two figures. Finally, 
+choose a proper size of the bootstrap 
+sample yourself. 
+
+\begin{figure}[h!]
+\centering
+\includegraphics[width=.5\textwidth]{}
+\caption{Performance of Ensemble 
+LR. Sample Size = ......??}
+\label{fig:hw13_bagging_1}
+\end{figure}
+
+\begin{figure}[h!]
+\centering
+\includegraphics[width=.5\textwidth]{}
+\caption{Bagging SVM. Bootstrap 
+Sample Size = ......??}
+\label{fig:hw13_bagging_2}
+\end{figure}
+
+\newpage 
+
+[4] Recall a linear regression 
+model is $f(x) = x^{T} \beta$.\footnote{Assume the bias term is included in $\beta$.} 
+Ideally, we assume a complete set of 
+training instances $(x_{1}, y_{1}), 
+\ldots, (x_{n}, y_{n})$ is presented, 
+and aim to learn $\beta$ by minimizing 
+the mean-squared-error (least square): 
+\begin{equation}
+MSE(f) = \sum_{i=1}^{n} 
+(x_{i}^{T} \beta - y_{i})^{2}. 
+\end{equation}
+Now, let us consider a stochastic setting, 
+where instances are presented in a sequential
+way, such that every time we receive only 
+one training instance to update $\beta$. 
+Please optimize $\beta$ using stochastic 
+gradient descent, still with an aim of 
+minimizing $MSE(f)$. 
+
+(4.a) We should update $\beta$ 
+by $\beta_{new} \leftarrow \beta_{old} 
+- \eta \cdot \Delta$, where $\eta$ 
+is learning rate. 
+Please show the exact form of $\Delta$. 
+
+(4.b) Implement the algorithm and 
+show your results in 
+Figure \ref{fig:hw13_online}. 
+The y-axis is testing error, and 
+x-axis is number of updates (or, 
+equivalently, number of received 
+training instances).\footnote{After 
+every update of $\beta$, you
+should evaluate it on the testing 
+set and get a testing error.} 
+
+\begin{figure}[h!]
+\centering
+\includegraphics[width=.5\textwidth]{}
+\caption{Online Learning of the 
+Linear Regression Model.}
+\label{fig:hw13_online}
+\end{figure}
+
+
+\end{document}

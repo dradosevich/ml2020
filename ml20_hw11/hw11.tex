@@ -1,0 +1,207 @@
+\documentclass{llncs}
+
+\usepackage[margin=1in]{geometry}
+
+\usepackage{graphicx,color,comment,url} 
+
+\usepackage{amsmath,amssymb}
+
+
+\title{[ML20] Assignment 11}
+\author{Your Name}
+\institute{}
+
+\begin{document}
+
+\maketitle 
+
+\setlength\parindent{0pt} 
+\setlength{\parskip}{10pt}
+
+Due: Apr 27 (by 8:45am) 
+
+Let us manually build classifiers to predict 
+student performance (Satisfactory/Unsatisfactory) 
+based on three features: major (1=CS/0=non-CS), 
+gender (1=female/0=male) and study hour (0.5/1/2). 
+
+Table \ref{tab:hw11_tab1} shows a training set, 
+and Table \ref{tab:hw11_tab2} shows a testing set. 
+Use them to answer the following questions. 
+
+You can use calculator/computer to assist the numerical
+calculations, but you should elaborate the mathematical
+arguments as 
+much as possible -- for example, if you estimate a 
+probability by first decomposing it and then 
+estimating each component, please show your 
+decomposition and the estimates of each component. 
+
+If your answer to a question is only a number, 
+you will lose 30\% points even if that number is correct. 
+
+\begin{table}
+\caption{Training Set}
+\centering
+\setlength{\tabcolsep}{10pt} % set column space
+\def\arraystretch{2} % set row space (ratio) 
+\begin{tabular}{c|c|c|c|c} \hline 
+Student ID & Major & Gender 
+& Study Hour & Performance \\ \hline 
+01 & 1 & 1 & 2 & S\\ \hline
+02 & 1 & 1 & 1 & S\\ \hline 
+03 & 1 & 0 & 2 & S\\ \hline
+04 & 0 & 0 & 2 & S\\ \hline 
+05 & 1 & 1 & 1 & S\\ \hline 
+06 & 1 & 0 & 0.5 & U\\ \hline 
+07 & 0 & 0 & 0.5 & U\\ \hline
+08 & 0 & 1 & 1 & U\\ \hline 
+09 & 1 & 0 & 1 & U\\ \hline
+10 & 1 & 1 & 0.5 & U\\ \hline 
+\end{tabular}
+\label{tab:hw11_tab1}
+\end{table}
+
+\begin{table}
+\caption{Testing Set}
+\centering
+\setlength{\tabcolsep}{10pt} % set column space
+\def\arraystretch{2} % set row space (ratio) 
+\begin{tabular}{c|c|c|c|c} \hline 
+Student ID & Major & Gender 
+& Study Hour & Performance \\ \hline 
+11 & 0 & 1 & 2 & ?\\ \hline
+12 & 0 & 1 & 0.5 & ?\\ \hline 
+\end{tabular}
+\label{tab:hw11_tab2}
+\end{table}
+
+\newpage 
+
+[1] Manually learn a Naive Bayes classifier from 
+the training set and apply it to classify the 
+testing set. Please complete the following steps. 
+
+(1.a) Elaborate your estimations of $p(y = S\mid x)$  
+and $p(y = U\mid x)$, and highlight your results. 
+
+(1.b) Clearly state your predicted classes for 
+students 11 and 12. 
+
+\newpage 
+
+[2] Manually learn a Linear Discriminant Analysis 
+classifier from the training set and apply it to 
+classify the testing set. Please complete the following 
+steps. 
+
+(2.a) Elaborate your estimations of $p(y = S\mid x)$  
+and $p(y = U\mid x)$, and highlight your results. 
+
+(2.b) Clearly state your predicted classes for 
+students 11 and 12. 
+
+\newpage 
+
+[3] Manually learn a k-NN classifier from the training 
+set and apply it to classify the testing set. Please 
+complete the following steps. 
+
+(3.a) Show the distances between training 
+and testing instances in Table \ref{tab:hw11_tab3}. 
+For example, X is the distance between students 11 
+and 04, and Y is the distance between 12 and 02. 
+Use L2-distance (not squared). 
+
+\begin{table}
+\caption{Pair-wise Distance Measure}
+\centering
+\setlength{\tabcolsep}{10pt} % set column space
+\def\arraystretch{2} % set row space (ratio) 
+\begin{tabular}{c|c|c|c|c|c|c|c|c|c|c} \hline 
+Student & 01 & 02 & 03 & 04 & 05 
+& 06 & 07 & 08 & 09 & 10 \\ \hline 
+11 & ? & ? & ? & X & ? & ? & ? & ? & ? & ? \\ \hline
+12 & ? & Y & ? & ? & ? & ? & ? & ? & ? & ? \\ \hline 
+\end{tabular}
+\label{tab:hw11_tab3}
+\end{table}
+
+(3.b) Identify the K nearest neighbors and their 
+labels of student 11 in Table \ref{tab:hw11_tab4}. 
+For example, suppose student 03 is the 4th nearest 
+neighbor of student 11, then X = 03 and Y = S. 
+
+\begin{table}
+\caption{K-nearest neighbor of Student 11}
+\centering
+\setlength{\tabcolsep}{10pt} % set column space
+\def\arraystretch{2} % set row space (ratio) 
+\begin{tabular}{c|c|c|c|c|c|c|c|c|c|c} \hline 
+ & 1st & 2nd & 3rd & 4th & 5th 
+& 6th & 7th & 8th & 9th & 10th \\ \hline
+Neighbor ID & ? & ? & ? & X & ? & ? & ? & ? & ? & ? \\ \hline
+Label & ? & ? & ? & Y & ? & ? & ? & ? & ? & ? \\ \hline
+\end{tabular}
+\label{tab:hw11_tab4}
+\end{table}
+
+(3.c) Show your classification results on testing 
+students in Table \ref{tab:hw11_tab5}. For example, 
+X is result of student 11 when K = 3, and Y is 
+result of 12 when K = 5. 
+
+\begin{table}
+\caption{Classification Results}
+\centering
+\setlength{\tabcolsep}{10pt} % set column space
+\def\arraystretch{2} % set row space (ratio) 
+\begin{tabular}{c|c|c|c|c|c} \hline 
+Student IC & K=1 & K=2 & K=3 & K=4 & K=5 \\ \hline
+11  & ? & ? & X & ? & ? \\ \hline
+12  & ? & ? & ? & ? & Y \\ \hline
+\end{tabular}
+\label{tab:hw11_tab5}
+\end{table}
+
+\newpage 
+
+[4] (Bonus) Implement k-NN with L2-distance 
+and evaluate it on the COMPAS data set. 
+Please draw a curve of testing error versus 
+K in Figure \ref{hw11_fig1} -- its x-axis is K 
+and y-axis is classification error on the 
+testing set.\footnote{Keep in mind that testing 
+error is the fraction of mis-classified testing
+instances.} Choose 5 values of K yourself so 
+that your curve can cover a relatively complete 
+story. 
+
+\begin{figure}[h!] 
+\centering 
+\includegraphics[width=.4\textwidth]{} 
+\caption{Testing Error of kNN versus K.} 
+\label{hw11_fig1}
+\end{figure}
+
+\newpage 
+
+[5] (Bonus) Redo task [4], but this time 
+implement a kernel kNN (kkNN) instead. 
+Choose the kernel function and its hyper-parameters  
+yourself. Similar to Figure \ref{hw11_fig1}, 
+draw two error curves in Figure \ref{hw11_fig2} 
+-- one curve of kNN and one curve of kkNN. 
+(If kkNN outperforms kNN at one value of K, 
+you get a 10\% additional bonus for this problem. 
+If kkNN outperforms kNN at all five values of K...) 
+
+\begin{figure}[h!] 
+\centering 
+\includegraphics[width=.4\textwidth]{} 
+\caption{Testing Errors of kNN and kkNN versus K.} 
+\label{hw11_fig2}
+\end{figure}
+
+\end{document}
+
